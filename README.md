@@ -1,131 +1,166 @@
-# 🚀 ESP32-S3 BLE Flutter App (Version 1)
+# ESP32-S3 BLE Flutter Application
 
-This project demonstrates **Bluetooth Low Energy (BLE) communication** between an **ESP32-S3 development board** and a **Flutter mobile application**.
+A Bluetooth Low Energy (BLE) communication system demonstrating bidirectional data exchange between an ESP32-S3 development board and a Flutter mobile application.
 
-## **🛠 Features**
-✅ Scan and connect to the **ESP32-S3 BLE device**  
-✅ Send data from the **mobile app** to ESP32  
-✅ Receive **notifications** from ESP32 and display in the app  
-✅ User-friendly **Flutter UI** with device discovery  
-✅ **Disconnect** feature to handle BLE disconnections  
+## Features
 
----
+- Device discovery and connection management for ESP32-S3 BLE devices
+- Bidirectional data transmission between mobile app and ESP32
+- Real-time notification handling and display
+- Intuitive user interface with device scanning capabilities
+- Graceful connection termination and error handling
 
-## **📷 Screenshots**
-| Scanning Devices | Connected & Receiving Data |
-|-----------------|---------------------------|
+## Screenshots
+
+| Device Scanning | Active Connection |
+|----------------|-------------------|
 |![scanning](https://github.com/user-attachments/assets/f78d2c8b-cdfb-4ff1-9090-4c8d77a1085c)|![version 1](https://github.com/user-attachments/assets/6e8ff4dd-a590-4ed6-ae28-5d9854c94951)|
 
----
+## Project Structure
 
-## **📂 Project Structure**
-````
-📁 ESP32-S3-BLE-App
- │── 📂 flutter_app/          # Your Flutter app
- │── 📂 esp32_ble_firmware/   # ESP32 Arduino firmware  
- │── README.md                # Project documentation
-````
+```
+ESP32-S3-BLE-App/
+├── flutter_app/              # Flutter mobile application
+├── esp32_ble_firmware/       # ESP32 Arduino firmware
+└── README.md                 # Project documentation
+```
 
----
+## Getting Started
 
-## **📌 Step-by-Step Guide**
+### Prerequisites
 
-### **1️⃣ Setup the ESP32-S3 BLE Firmware**
+- Arduino IDE 1.8.x or later
+- Flutter SDK 3.0 or later
+- ESP32-S3 development board
+- Physical Android or iOS device (BLE not supported in emulators)
 
-1. Install **Arduino IDE**: [Download Here](https://www.arduino.cc/en/software)
-2. Install the **ESP32 Board Package**:
-   - Open **Arduino IDE**
-   - Go to **File** > **Preferences** > Add this URL to **Board Manager**:
+### ESP32-S3 Firmware Setup
+
+1. **Install Arduino IDE**
+   
+   Download from the [official Arduino website](https://www.arduino.cc/en/software).
+
+2. **Configure ESP32 Board Support**
+   
+   - Navigate to File > Preferences
+   - Add the following URL to Additional Boards Manager URLs:
      ```
      https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
      ```
-   - Open **Tools** > **Board** > **Boards Manager** > Search for **ESP32** > Install **ESP32 by Espressif Systems**.
-3. Install **ESP32 BLE Library**:
-   - Open **Tools** > **Manage Libraries**
-   - Search for **"ESP32 BLE Arduino"** and install it.
-4. Open `esp32_ble_firmware.ino` from `esp32_ble_firmware/` folder.
-5. Select **ESP32-S3 Board** from **Tools > Board**.
-6. **Upload the sketch** to your ESP32-S3.
-7. Open **Serial Monitor** (115200 baud) and confirm BLE advertising is active.
+   - Open Tools > Board > Boards Manager
+   - Search for "ESP32" and install "ESP32 by Espressif Systems"
 
----
+3. **Install Required Libraries**
+   
+   - Open Tools > Manage Libraries
+   - Search and install "ESP32 BLE Arduino"
 
-### **2️⃣ Setup the Flutter Mobile App**
+4. **Upload Firmware**
+   
+   - Open `esp32_ble_firmware.ino` from the `esp32_ble_firmware/` directory
+   - Select your ESP32-S3 board from Tools > Board
+   - Connect your ESP32-S3 via USB
+   - Click Upload
+   - Open Serial Monitor (115200 baud) to verify BLE advertising status
 
-1. Install **Flutter SDK**: [Download Here](https://flutter.dev/docs/get-started/install)
+### Flutter Application Setup
 
-2. Clone this repository:
-   ```sh
-   git clone https://github.com/YOUR_GITHUB_USERNAME/ESP32-S3-BLE-App.git
-   cd ESP32-S3-BLE-App/flutter_app
+1. **Install Flutter**
+   
+   Follow the [official Flutter installation guide](https://flutter.dev/docs/get-started/install) for your operating system.
 
-3. Install dependencies:
-  ```
-  flutter pub get
-  ```
+2. **Clone Repository**
+   
+   ```bash
+   https://github.com/senurah/ESP32-S3-Flutter-BLE-Communicator.git
+   ```
 
-4. Run on a Physical Device (Emulators do not support BLE):
-  ```
-  flutter run
-  ```
+3. **Install Dependencies**
+   
+   ```bash
+   flutter pub get
+   ```
 
-5. Grant Permissions:
-  - Android: Ensure Location & Bluetooth permissions are enabled.
-  - iOS: Add required permissions in ```Info.plist```.
+4. **Configure Permissions**
+   
+   **Android**: Ensure the following permissions are declared in `android/app/src/main/AndroidManifest.xml`:
+   - `BLUETOOTH`
+   - `BLUETOOTH_ADMIN`
+   - `BLUETOOTH_SCAN`
+   - `BLUETOOTH_CONNECT`
+   - `ACCESS_FINE_LOCATION`
 
----
+   **iOS**: Add required keys to `ios/Runner/Info.plist`:
+   - `NSBluetoothAlwaysUsageDescription`
+   - `NSBluetoothPeripheralUsageDescription`
 
-## **📡 How to Use**
+5. **Deploy Application**
+   
+   ```bash
+   flutter run
+   ```
 
-#### 🔍 Scan & Connect to ESP32
-  1. Turn on your ESP32-S3 BLE device.
-  2. Open the Flutter App and tap ```"Scan for Devices"```.
-  3. Select ESP32-S3-BLE-Example from the list to connect.
-     
-#### 📨 Sending Data
-  1. Type a message in the input field and press Enter.
-  2. The ESP32 will receive & print the message in the Serial Monitor.
-  3. Select ESP32-S3-BLE-Example from the list to connect.
+## Usage
 
-#### 📩 Receiving Data
-  1. ESP32 automatically sends notifications to the app.
-  2. The app displays the received data in a Snackbar.
+### Connecting to ESP32-S3
 
-#### 🔌 Disconnecting
-  - Press ```"Disconnect"``` to safely close the BLE connection
+1. Power on your ESP32-S3 device
+2. Launch the Flutter application
+3. Tap "Scan for Devices"
+4. Select "ESP32-S3-BLE-Example" from the discovered devices list
 
----
+### Sending Data
 
-## **🔧 Known Issues & Fixes**
+1. Enter your message in the text input field
+2. Press Enter or tap Send
+3. Verify receipt in the ESP32 Serial Monitor
 
-| Issue	| Solution |
-|-----------------|---------------------------|
-| ESP32 not appearing in scan	| Restart ESP32 and ensure it's advertising properly. |
-| App crashes on start	| Ensure Flutter dependencies are installed correctly. |
-| Permissions issue on Android	| Grant Bluetooth & Location permissions manually. |
-| BLE scanning too frequent error	| Reduce scanning intervals to 10s or more. |
+### Receiving Data
 
----
+The application automatically receives and displays notifications from the ESP32 in real-time through Snackbar messages.
 
-## **📜 License**
+### Disconnecting
 
-We welcome contributions! Feel free to:
-- ✅ Report issues 
-- ✅ Improve code efficiency  
-- ✅ Add new features
-  
-Pull requests are always welcome! 🚀
+Press the "Disconnect" button to terminate the BLE connection safely.
 
----
+## Troubleshooting
 
-## **📞 Support & Contact**
+| Issue | Resolution |
+|-------|-----------|
+| ESP32 not detected during scan | Verify ESP32 is powered and advertising. Check Serial Monitor output. Restart device if necessary. |
+| Application crashes on launch | Verify all Flutter dependencies are properly installed. Run `flutter doctor` to check configuration. |
+| Permission errors on Android | Manually grant Bluetooth and Location permissions in device settings. |
+| BLE scan frequency errors | Implement scan throttling with minimum 10-second intervals between scans. |
 
-For any issues or suggestions, please open a GitHub Issue or contact me at:
-[Github:senurah](https://github.com/senurah)
+## Contributing
 
-### **🎉 Happy Coding! Enjoy Your ESP32-S3 BLE App! 🚀**
+Contributions are welcome and encouraged. To contribute:
 
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/improvement`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/improvement`)
+5. Open a Pull Request
 
+Areas for contribution include:
+- Bug reports and fixes
+- Performance optimizations
+- Feature enhancements
+- Documentation improvements
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Support
+
+For bug reports, feature requests, or general questions:
+- Open an issue on [GitHub Issues](https://github.com/senurah/ESP32-S3-BLE-App/issues)
+- Contact the maintainer: [GitHub - senurah](https://github.com/senurah)
+
+## Acknowledgments
+
+Built with ESP32 Arduino Core and Flutter's flutter_blue_plus package.
 
 
 
